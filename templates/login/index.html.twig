@@ -1,0 +1,25 @@
+{# templates/login/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Se Connecter</h1>
+        <form action="{{ path('login') }}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Email:</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"/>
+            </div>
+            <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input class="form-control" type="password" id="password" name="_password"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+            {% if error %}
+                <div style="color: red">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+        </form>
+        <p class="mt-3">Vous n'avez pas encore de compte ? <a href="{{ path('register') }}">Enregistres-toi</a></p>
+    </div>
+{% endblock %}

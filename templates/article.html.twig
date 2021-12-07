@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+        <div class="container py-3">
+                <a class="text-decoration-none " href="{{ path('index') }}">Retour</a>
+                <h1 class="p-5">{{ article.title }}</h1>
+                <i>Publié le {{ article.date|date("F jS Y")}}</i> <br><br>
+                <img src="{{ asset('pictures/' ~ article.pictureFilename) }}" class="rounded mx-auto d-block img-fluid">
+                {{ article.content }}
+        </div>
+
+{% endblock %}

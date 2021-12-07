@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="m-3 text-center">Touts les articles</h1>
+        <div class="accordion pb-3" id="accordionExample">
+            {% for article in articles %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ article.id }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ article.id }}" aria-expanded="true" aria-controls="collapse{{ article.id }}">
+                            <span class="badge bg-dark me-3">#{{ article.id }}</span><b>{{article.title}}</b>
+                        </button>
+                    </h2>
+                    <div id="collapse{{ article.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ article.id }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            Published on {{ article.date|date("d/m/Y") }} <br>
+                            <a target="_blank" href="{{ path('article', {id: article.id} ) }}">See the article</a> <br>
+                            <a href="{{ path('editArticle', {id: article.id} )}}" class="btn btn-outline-primary">Edit</a>
+                            <form style="display: inline-block" class="mt-2" action="{{ path('deleteArticle', {id: article.id} ) }}" method="post">
+                                <input type="hidden" name="token" value="{{ csrf_token('token'~article.id) }}"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="text-decoration-none" href="{{ path('newArticle') }}">Ajouter un article</a>
+    </div>
+{% endblock %}
